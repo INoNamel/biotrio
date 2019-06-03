@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio - bookings</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+    <div class="margin_auto">
+        <h1><a class="btn_log" th:if="${session.logged == true}" href="/logout">log out</a> Admin Panel - <a href="../titles">titles</a> | <a href="../performances">performances</a> | <a href="../theaters">theaters</a></h1><br/>
+        <div th:if="${not #lists.isEmpty(bookings) and bookings != null}">
+            <div class="flex space-between">
+                <h2>
+                    <span th:text="${bookings[0].performance.title.title}"></span> ->
+                    <span th:text="${bookings[0].performance.fullDate() +' '+bookings[0].performance.getTime()}"></span>
+                </h2>
+                <form th:action="@{'/admin/bookings/'+${bookings[0].performance.id}}" method=GET>
+                    tlf.:<input type="tel" name="phone" pattern="[0-9]{6,9}" placeholder="12345678" />
+                    <input type="submit" class="btn_book" value="Search" />
+                </form>
+            </div>
+            <div class="flex flex_">
+                <table class="info_table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Booked on</th>
+                        <th scope="col">Seat</th>
+                        <th scope="col">Tlf.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="booking:${bookings}">
+                        <td th:text="${booking.id}"></td>
+                        <td th:text="${booking.fullDateTime()}"></td>
+                        <td th:text="${booking.seat}"></td>
+                        <td th:text="${booking.phone}"></td>
+                        <td><a class="btn_delete" th:href="@{'/admin/bookings/delete/' + ${booking.id}}">Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${message != null}">
+                    <span class="msg" th:text="${message}"></span>
+                </div>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(bookings)}">
+            <h3>No bookings found for this performance</h3>
+        </div>
+        <div class="margin-bottom"><a class="btn_bck" th:href="@{/admin/performances}">Back</a></div>
+    </div>
+</main>
+</body>
+</html>

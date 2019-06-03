@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio - edit title</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+    <div class="margin_auto">
+        <h1>Admin Panel - edit title</a></h1><br/>
+        <form action="/admin/titles/update-title"  th:object="${titleForm}" method=POST>
+            <div class="flex flex_" th:if="${titleForm.id != 0}">
+                <div>
+                    <input type="hidden" th:field="${titleForm.id}" required/>
+                    *Title: <br/><input type="text" th:field="${titleForm.title}" placeholder="title" required/>
+                </div>
+                <div>
+                    Display? <br/>
+                    <input type="checkbox" th:name="display" th:checked="${titleForm.display}" />
+                </div>
+                <div>
+                    *Genre: <br/><input type="text" th:field="${titleForm.genre}" placeholder="genre" required/>
+                </div>
+                <div>
+                    *Duration:<br/><input type="number" th:field="${titleForm.duration}" min="30" max="999" placeholder="duration" required/>
+                </div>
+                <div>
+                    Equipment(3d etc): <br/><input type="text" th:field="${titleForm.equipment}" placeholder="equipment" />
+                </div>
+                <div>
+                    Producer: <br/><input type="text" th:field="${titleForm.producer}" placeholder="producer" />
+                </div>
+                <div>
+                    Actors: <br/><input type="text" th:field="${titleForm.actors}" placeholder="actors" />
+                </div>
+                <div>
+                    Description: <br/><textarea th:field="${titleForm.description}" placeholder="description"></textarea>
+                </div>
+                <div style="margin: 8px 0 0 0;" th:if="${message != null}">
+                    <span class="msg" th:text="${message}"></span>
+                </div>
+            </div>
+            <div class="flex space-between">
+                <button th:if="${titleForm.id != 0}" type="submit" class="btn_edit">Update</button><a class="btn_bck" th:href="@{/admin/titles}">Back</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

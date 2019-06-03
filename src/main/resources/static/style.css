@@ -1,0 +1,268 @@
+body {
+    margin: auto;
+    font-family: Arial;
+}
+main {
+    display: flex;
+}
+#logo {
+    min-width: 900px;
+    max-width: 1200px;
+    display: flex;
+    margin: auto;
+}
+header {
+    margin: auto;
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    background-color: gainsboro;
+}
+theater {
+    margin-bottom: 60px;
+}
+
+performances {
+    margin-top: 150px;
+}
+
+.close {
+    cursor: pointer;
+}
+#popup {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    max-width: 768px;
+}
+#logo h2 {
+    margin-left: 80px;
+    align-self: center;
+}
+a:active, a:hover, a:visited, a:link {
+    text-decoration: none;
+}
+h4 {
+    text-transform: uppercase;
+    font-size: 1.125em;
+    line-height: 1.1;
+    font-weight: 700;
+}
+h5 {
+    margin: 1.2em 0 0 0;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+.title p {
+    margin: .5rem 0 0;
+}
+.vertical_align_middle {
+    vertical-align: middle;
+}
+.all_dates {
+    border-radius: 2em;
+    border: 2px solid black;
+    text-align: center;
+    text-transform: uppercase;
+    display: block;
+    margin: 0 20px 30px 20px;
+}
+.seat {
+    width: 25px;
+    height: 25px;
+    margin: 2px;
+    cursor: pointer;
+    border: 0 none;
+    border-radius: 8px;
+    color: #ffffff;
+    background-color: #416dea;
+}
+.seat:hover {
+    transition: all 150ms linear;
+    opacity: .85;
+}
+.choose_seat {
+    background-color: greenyellow;
+}
+.occupied {
+    background-color: red;
+}
+#booking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#booking_seats {
+    display: flex;
+    justify-content: space-between;
+    height: 160px;
+}
+#booking_seats_form {
+    padding: 25px;
+    width: 180px;
+}
+#msg {
+    position: fixed;
+    width: 180px;
+}
+.msg {
+    font-size: 20px;
+    position: fixed;
+    margin-left: 40px;
+}
+.submit_btn {
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 2em;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: limegreen;
+    font-size: 18px;
+    font-weight: bold;
+    color: ghostwhite;
+}
+#booking table {
+    padding: 0 70px 0 70px;
+}
+#chosen_seats {
+    border: none;
+    box-shadow: none;
+}
+#chosen_seats:focus {
+    outline: none;
+    box-shadow: none;
+}
+#confirm_booking {
+    margin: 100px auto auto auto;
+    width: 400px;
+}
+.title {
+    flex-basis: 25%;
+    min-width: 260px;
+}
+.title_top {
+    height: 300px;
+    padding: 15px;
+    background-color: aliceblue;
+    margin: 0 15px 0 15px;
+}
+.title_btn {
+    background-color: aliceblue;
+    margin: 0 15px 30px 15px;
+    padding: 10px;
+}
+#titles {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 30px;
+    max-width: 1400px;
+}
+.info {
+    width: 360px;
+}
+.date {
+    padding: 20px;
+}
+.date_box a:active, .date_box a:hover, .date_box a:visited, .date_box a:link {
+    color: black;
+}
+.date div {
+    margin-bottom: 25px;
+}
+.performance_weekday {
+    width: 80px;
+    padding: 10px;
+    border: 1px dashed black;
+}
+.poster {
+    margin: 20px 20px 0 0;
+}
+
+.na {
+    font-style: italic;
+    color: gray;
+}
+.top_padding {
+    padding-top: 150px;
+}
+.flex {
+    display: flex;
+    justify-content: space-evenly;
+}
+.flex_ div {
+    margin: 8px;
+}
+.margin_auto {
+    margin: auto;
+}
+.message {
+    margin: 10px 0 0 0;
+}
+.space-between {
+    justify-content: space-between;
+}
+
+.margin-bottom {
+    margin-bottom: 50px;
+}
+.margin-top {
+    margin-top: 150px;
+}
+
+.title_description {
+    max-width: 460px;
+}
+
+.btn_edit, .btn_delete, .btn_add, .btn_bck, .btn_book, .btn_log {
+    cursor: pointer;
+    border: 0 none;
+    border-radius: 9px;
+    color: #ffffff;
+    padding: 8px;
+    margin: 5px;
+}
+.btn_edit {
+    background-color: green;
+}
+.btn_delete {
+    background-color: crimson;
+}
+.btn_add {
+    background-color: blue;
+}
+.btn_bck {
+    background-color: gold;
+}
+.btn_book {
+    background-color: darkorange;
+}
+.btn_log {
+    background-color: darkorchid;
+}
+.btn_edit:hover ,btn_delete:hover {
+    transition: all 150ms linear;
+    opacity: .85;
+}
+.info_table {
+    min-width: 700px;
+    max-width: 1200px;
+    border-collapse: collapse;
+    margin-bottom: 60px;
+    width: 100%;
+}
+.info_table td {
+    padding: 12px;
+    text-align: center;
+}
+.info_table td:last-child {
+    text-align: right;
+}
+.info_table td {
+    border-top: 1px solid lightgray;
+}

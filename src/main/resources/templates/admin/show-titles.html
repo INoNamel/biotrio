@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio - all titles</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+    <div class="margin_auto">
+        <h1><a class="btn_log" th:if="${session.logged == true}" href="/logout">log out</a> Admin Panel - <a href="titles">[titles]</a> | <a href="performances">performances</a> | <a href="theaters">theaters</a></h1><br/>
+        <a class="btn_add" href="titles/add">Add</a><br/><br/>
+        <div class="flex" th:if="${titles != null}">
+            <table class="info_table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">display?</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Equipment</th>
+                        <th scope="col">Producer</th>
+                        <th scope="col">Actors</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="title:${titles}">
+                        <td th:text="${title.id}"></td>
+                        <td th:if="${title.display}">yes</td>
+                        <td th:if="${!title.display}">no</td>
+                        <td th:text="${title.title}"></td>
+                        <td th:text="${title.genre}"></td>
+                        <td th:text="${title.duration}"></td>
+                        <td th:classappend="${title.equipment} ?: 'na'" th:text="${title.equipment} ?: 'n/a'"></td>
+                        <td th:classappend="${title.producer} ?: 'na'" th:text="${title.producer} ?: 'n/a'"></td>
+                        <td th:classappend="${title.actors} ?: 'na'" th:text="${title.actors} ?: 'n/a'"></td>
+                        <td class="title_description" th:classappend="${title.description} ?: 'na'" th:text="${title.description} ?: 'n/a'"></td>
+                        <td><a class="btn_edit" th:href="@{'titles/edit/' + ${title.id}}">Edit</a><a class="btn_delete" th:href="@{'titles/delete/' + ${title.id}}">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:if="${message != null}">
+                <span class="msg" th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

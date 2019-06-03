@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#popup").hide();
+        $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
+        $(".trailer").click(function (e) {
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $("#popup").fadeIn('fast');
+        });
+
+        $(".close").click(function () {
+            $(this).parent().hide();
+            $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
+        });
+    });
+</script>
+<header>
+    <div id="logo" class="date_box"><a href="/"><img src="" th:src="@{/img/logo.png}" width="240px;" alt="" /></a>
+        <h2><a href="/search/movie">Movies</a></h2><h2><a href="/search/show">Shows</a></h2>
+    </div>
+</header>
+
+<div id="popup">
+    <iframe class="youtube-video" src="" width="480" height="270" frameborder="0" allowfullscreen></iframe>
+    <img class="close" src="" width="30px" height="30px" th:src='@{img/x.png}' alt="" />
+</div>
+
+<main>
+    <div class="margin-top margin_auto" th:if="${titles != null and !titles.isEmpty()}">
+        <div id="titles">
+            <div class="title" th:each="title:${titles}">
+                <div class="title_top">
+                    <h4><span th:text="${title.title+' '}"></span><span th:text="${title.equipment} ?: ''"></span></h4>
+                <p th:text="${title.genre}"></p>
+                <p>
+                    <a class="trailer" href="https://www.youtube.com/embed/oHg5SJYRHA0?&enablejsapi=1&version=3&autoplay=1">
+                        <img class="vertical_align_middle" src="" th:src='@{/img/see_trailer.png}' align='middle' width='30px;' alt='' />
+                    </a>
+                    <span class="vertical_align_middle">watch trailer</span>
+                </p>
+                <h5>producer</h5>
+                <p th:text="${title.producer} ?: '-'"></p>
+                <h5>actors</h5>
+                <p th:text="${title.actors} ?: '-'"></p>
+                <h5 th:text="'Duration: ' +${title.duration + ' minutes'}"></h5>
+                </div>
+                <div class="title_btn date_box">
+                    <a th:href="@{'/watch/'+${title.id}+'/'}" class="all_dates">available dates</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="margin-bottom margin-top flex space-between margin_auto" th:if="${titles == null or titles.isEmpty()}">
+        <h3>Nothing found sorry</h3>
+    </div>
+</main>
+</body>
+</html>

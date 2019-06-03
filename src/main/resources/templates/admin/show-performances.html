@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio - all performances</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+    <div class="margin_auto">
+        <h1><a class="btn_log" th:if="${session.logged == true}" href="/logout">log out</a> Admin Panel - <a href="titles">titles</a> | <a href="performances">[performances]</a> | <a href="theaters">theaters</a></h1><br/>
+        <a class="btn_add" href="performances/add">Add</a><br/><br/>
+        <div class="flex" th:if="${performances != null}">
+            <table class="info_table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Theater</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="performance:${performances}">
+                        <td th:text="${performance.id}"></td>
+                        <td th:text="${performance.title.title}"></td>
+                        <td th:text="${performance.theater.color}"></td>
+                        <td th:text="${performance.fullDate() +' '+ performance.getTime()}"></td>
+
+                        <td>
+                            <a class="btn_book" th:href="@{'bookings/' + ${performance.id}}">Bookings</a>
+                            <a class="btn_edit" th:href="@{'performances/edit/' + ${performance.id}}">Edit</a>
+                            <a class="btn_delete" th:href="@{'performances/delete/' + ${performance.id}}">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:if="${message != null}">
+                <span class="msg" th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

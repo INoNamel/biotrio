@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio - login</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main>
+        <div class="margin-top margin_auto">
+            <form th:if="${session.logged == null}" th:action="@{/admin}" th:object="${loginForm}" method=POST>
+                <input type="password" th:field="*{password}" placeholder="12345" />
+
+                <input type="submit" class="btn_edit" value="login"/>
+            </form>
+            <a href="/"><h1>Navigate back</h1></a>
+            <a class="btn_log" th:if="${session.logged == true}" href="/logout"><h1>log out</h1></a>
+        </div>
+    </main>
+</body>
+</html>

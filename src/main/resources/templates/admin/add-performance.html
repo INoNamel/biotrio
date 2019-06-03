@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio - add performance</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+    <div class="margin_auto">
+        <h1>Admin Panel - add performance</a></h1><br/>
+        <form action="/admin/performances/add-performance" th:if="${performanceForm != null}" th:object="${performanceForm}" method=POST>
+            <div class="flex flex_">
+                <div>
+                    Title:
+                    <select th:field="${performanceForm.title.id}">
+                        <option th:each="title:${titles}" th:value="${title.id}" th:text="${title.title}"></option>
+                    </select>
+                </div>
+                <div>
+                    Theater:
+                    <select th:field="${performanceForm.theater.id}">
+                        <option th:each="theater:${theaters}" th:value="${theater.id}" th:text="${theater.color}"></option>
+                    </select>
+                </div>
+                <div>
+                    Date: <input type="text" th:field="${performanceForm.date}" placeholder="2019-01-01 00:00" min="2019-05-28 00:00" max="2029-01-01 00:00" value="2019-01-01 00:00" required/>
+                </div>
+                <div style="margin: 10px 0 0 0;" th:if="${message != null}">
+                    <span class="msg" th:text="${message}"></span>
+                </div>
+            </div>
+            <div class="flex space-between">
+                <button type="submit" class="btn_edit">Add</button><a class="btn_bck" th:href="@{/admin/performances}">Back</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

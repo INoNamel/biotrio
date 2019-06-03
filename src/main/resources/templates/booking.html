@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio - Booking</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<script type="text/javascript">
+            var counter;
+            var seats = [];
+
+            function chooseSeat(id) {
+
+                if (!document.getElementById(id).className.match("occupied")) {
+                    if (!document.getElementById(id).className.match("choose_seat")) {
+                        if (seats.length < 4) {
+                            addSeat(id);
+                            document.getElementById(id).classList.toggle('choose_seat');
+                        } else {
+                            document.getElementById(id).classList.remove('choose_seat');
+                        }
+                    } else {
+                        var pos = seats.indexOf(id);
+                        seats.splice(pos, 1);
+                        document.getElementById(id).classList.remove('choose_seat');
+                    }
+
+                    console.log(seats);
+                }
+                document.getElementById("booked").innerHTML = "Seats: "+seats;
+                document.getElementById("chosen_seats").value = seats;
+            }
+
+            function addSeat(id) {
+                seats.push(id);
+            }
+</script>
+<header>
+    <div id="logo" class="date_box"><a href="/"><img src="" th:src="@{/img/logo.png}" width="240px;" alt="" /></a>
+        <h2><a href="/search/movie">Movies</a></h2><h2><a href="/search/show">Shows</a></h2>
+    </div>
+</header>
+<main>
+    <div class="margin-bottom margin-top flex space-between margin_auto" th:if="${performance.id > 0}">
+
+
+        <div class="date_box">
+            <h1 th:text="${performance.title.title}"></h1>
+            <h3 th:text="${performance.getDay() + ' - ' + performance.getTime()}"></h3>
+            <a th:href="@{../..}" >&larr; another date</a>
+        </div>
+
+
+        <div id="booking">
+            <img src="" th:src="@{/img/screen.png}" width="100%" alt="" />
+            <h4 th:text="${performance.theater.color + ' floor'}"></h4>
+            <table>
+                <tr th:each="row:${performance.theater.seats}">
+                    <td th:each="seat:${row}">
+                        <button onclick = "chooseSeat(this.id)"  th:value="${seat.seatId()}" id = "" th:id="${seat.seatId()}" class="seat" th:classappend="${seat.occupation} ? occupied : ''" th:disabled="${seat.occupation}" ></button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="booking_seats_form">
+            <form action="#" th:action="@{'/watch/'+${performance.title.id+'/'+performance.fullDate()+'/reserve/'+performance.id}}" th:object="${bookingForm}" method=POST>
+                Your phone number: <br/><input type="tel" pattern="[0-9]{6,9}" th:field="*{phone}" id="phone_number" name="phone_number" required/>
+                <input type="hidden" th:field="*{seat}" id="chosen_seats" name="seats" value="" required/>
+                <input class="submit_btn" type="submit" name="book_seats" value="book" />
+                <p><span id="booked"></span></p>
+            </form>
+            <div id="msg" th:if="msg != null">
+                <p th:each="text:${msg}"><span th:text="${text}"></span><br/></p>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="margin-bottom margin-top flex space-between margin_auto" th:if="${performance == null or performance.id <= 0}">
+        <h3>Nothing found sorry</h3>
+    </div>
+</main>
+</body>
+</html>

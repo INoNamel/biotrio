@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#popup").hide();
+        $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
+        $(".trailer").click(function (e) {
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $("#popup").fadeIn('fast');
+        });
+
+        $(".close").click(function () {
+            $(this).parent().hide();
+            $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
+        });
+    });
+</script>
+<header>
+    <div id="logo" class="date_box"><a href="/"><img src="" th:src="@{/img/logo.png}" width="240px;" alt="" /></a>
+        <h2><a href="/search/movie">Movies</a></h2><h2><a href="/search/show">Shows</a></h2>
+    </div>
+</header>
+
+<div id="popup">
+    <iframe class="youtube-video" src="" width="480" height="270" frameborder="0" allowfullscreen></iframe>
+    <img class="close" src="" width="30px" height="30px" th:src='@{/img/x.png}' alt="" />
+</div>
+
+<main>
+    <div class="flex margin-top margin_auto" th:if="${title != null and title.title != null}">
+        <div class="poster">
+            <img src="/img/poster.jpg" alt="" width="200px" height="300px" />
+        </div>
+        <div class="info">
+            <h1><span th:text="${title.title+' '}"></span><span th:text="${title.equipment} ?: ''"></span></h1>
+            <p th:text="${title.genre}"></p>
+            <p>
+                <a class="trailer" href="https://www.youtube.com/embed/oHg5SJYRHA0?&enablejsapi=1&version=3&autoplay=1">
+                    <img class="vertical_align_middle" src="" th:src='@{/img/see_trailer.png}' align='middle' width='30px;' alt='' />
+                </a>
+                <span class="vertical_align_middle">watch trailer</span>
+            </p>
+            <h5>producer</h5>
+            <p th:text="${title.producer} ?: '-'"></p>
+            <h5>actors</h5>
+            <p th:text="${title.actors} ?: '-'"></p>
+            <h5 th:text="'Duration: ' +${title.duration + ' minutes'}"></h5>
+            <p th:text="${title.description} ?: ''"></p>
+        </div>
+        <div class="date">
+            <div>
+                <select onchange="location = this.value;">
+                    <option th:if="${when == null or when.empty}" th:text="${today + ' - today'}" selected disabled></option>
+                    <option th:each="date:${dates}" th:unless="${when==null and today==date}" th:value="${date}" th:text="${date}" th:selected="${when != null and date==when}" ></option>
+                </select>
+            </div>
+            <div th:if="${!performances.empty}">
+                <span>
+                    Available time:
+                </span>
+                <div class="date_box date_box" th:each="performance:${performances}">
+                    <a th:href="@{'/watch/'+${title.id + '/' + performance.fullDate() + '/reserve/' + performance.id}}"><p th:text="${performance.getTime()}"></p></a>
+                </div>
+            </div>
+            <div th:if="${dates.empty}">
+                <h2>Coming soon...</h2>
+            </div>
+            <div th:if="${!dates.empty and performances.empty}">
+                <span>Choose a different date</span>
+            </div>
+        </div>
+    </div>
+    <div class="flex margin-top margin_auto" th:if="${title == null or title.title == null}">
+        <h3>Nothing found sorry</h3>
+    </div>
+</main>
+</body>
+</html>

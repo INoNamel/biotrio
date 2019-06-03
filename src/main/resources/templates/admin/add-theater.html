@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Bio Trio - add theater</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+    <div class="margin_auto">
+        <h1>Admin Panel - add theater</a></h1><br/>
+        <form action="/admin/theaters/add-theater" th:if="${theaterForm != null}" th:object="${theaterForm}" method=POST>
+            <div class="flex flex_">
+                <div>
+                    Color: <br/><input type="text" th:field="${theaterForm.color}" placeholder="color" required/>
+                </div>
+                <div>
+                    Rows: <br/><input type="number" min="1" max="26" th:field="${theaterForm.rows}" placeholder="rows" required/>
+                </div>
+                <div>
+                    Seats:<br/><input type="number" min="1" max="99" th:field="${theaterForm.seat}" placeholder="seats" required/>
+                </div>
+                <div style="margin: 10px 0 0 0;" th:if="${message != null}">
+                    <span class="msg" th:text="${message}"></span>
+                </div>
+            </div>
+            <div class="flex space-between">
+                <button type="submit" class="btn_edit">Add</button><a class="btn_bck" th:href="@{/admin/theaters}">Back</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>
