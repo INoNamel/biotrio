@@ -268,7 +268,7 @@ class PerformanceRepository {
      */
     Performance findPerformance(int id) {
         try {
-            String query = ("SELECT theater_ref as theater_id, color, title_ref as title_id, title, performance.id as performance_id, date, rows, seats " +
+            String query = ("SELECT theater_ref as theater_id, color, title_ref as title_id, title, performance.id as performance_id, date, `rows`, seats " +
                     "FROM performance " +
                     "INNER JOIN title_list ON performance.title_ref = title_list.id " +
                     "INNER JOIN theater ON performance.theater_ref = theater.id " +
@@ -376,7 +376,7 @@ class PerformanceRepository {
     void updateTheater(Theater theater) {
         jdbc.update("UPDATE theater SET " +
             "color='" + theater.getColor() + "', " +
-            "rows=" + theater.getRows() + ", " +
+            "`rows`=" + theater.getRows() + ", " +
             "seats=" + theater.getSeat() + " " +
             "WHERE id = " + theater.getId()+ " ");
     }
@@ -386,7 +386,7 @@ class PerformanceRepository {
      */
     void addTheater(Theater theater) {
         jdbc.update("INSERT INTO theater " +
-            "(color, rows, seats) " +
+            "(color, `rows`, seats) " +
             "VALUES ('" + theater.getColor() + "', " + theater.getRows() + ", " + theater.getSeat() + ") ");
     }
 
