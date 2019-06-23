@@ -72,7 +72,7 @@ CREATE TABLE terces (
 CREATE TABLE theater (
   id int(11) NOT NULL,
   color varchar(15) DEFAULT NULL,
-  rows tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
+  `rows` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
   seats tinyint(3) UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
